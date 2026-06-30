@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valerio Malagoli — Web Developer</title>
+<meta name="description" content="Portfolio van Valerio Malagoli, Web Developer in opleiding. Projecten, vaardigheden en contact.">
+<link rel="stylesheet" href="css/style.css">
+<style>
+  section[id]{ scroll-margin-top: 84px; }
+
+  .project-card{ display:flex; flex-direction:column; }
+  .project-body{ padding:26px 26px 28px; display:flex; flex-direction:column; gap:16px; flex:1; }
+  .project-top{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+  .project-meta{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap:10px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+    padding: 14px 0;
+  }
+  .project-meta div span{ display:block; color:var(--text-faint); margin-bottom:3px; }
+  .project-meta div b{ color: var(--text); font-weight:500; }
+  .highlights{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:7px; }
+  .highlights li{ font-size:14px; color:var(--text-muted); padding-left:18px; position:relative; }
+  .highlights li::before{ content:"›"; position:absolute; left:0; color:var(--accent-2); }
+  .code-snip{
+    background: var(--bg);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-muted);
+    overflow-x:auto;
+  }
+  .video-slot{
+    aspect-ratio:16/9;
+    border:1px dashed var(--border);
+    border-radius: var(--radius-sm);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:6px; color:var(--text-faint); font-family:var(--font-mono); font-size:12px; text-align:center; padding:14px;
+  }
+  .grid-projects{ display:grid; grid-template-columns: repeat(2, 1fr); gap:24px; }
+  @media (max-width: 880px){ .grid-projects{ grid-template-columns: 1fr; } }
+  .soon-card{
+    border: 1px dashed var(--border);
+    background: transparent;
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    min-height: 320px; padding: 30px;
+  }
+
+  .about-grid{ display:grid; grid-template-columns: 320px 1fr; gap:48px; align-items:start; }
+  @media (max-width: 880px){ .about-grid{ grid-template-columns:1fr; } }
+  .photo-frame{
+    aspect-ratio: 4/5;
+    border-radius: var(--radius);
+    border: 1px dashed var(--border);
+    background: var(--bg-alt);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:10px; color:var(--text-faint); font-family:var(--font-mono); font-size:13px; text-align:center; padding:20px;
+  }
+  .skill-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:28px; }
+  @media (max-width:700px){ .skill-grid{ grid-template-columns:1fr; } }
+  .skill-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px; }
+  .skill-list li{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .skill-name{ font-size:14.5px; }
+  .skill-bar{ flex:1; max-width:140px; height:6px; border-radius:999px; background:var(--bg-elevated); overflow:hidden; margin-left:14px; }
+  .skill-bar > span{ display:block; height:100%; background:var(--accent-2); border-radius:999px; }
+  .quote-card{
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    display:grid;
+    grid-template-columns: 96px 1fr;
+    gap:20px;
+    align-items:center;
+  }
+  @media (max-width:560px){ .quote-card{ grid-template-columns:1fr; } }
+  .mini-photo{
+    width:96px; height:96px; border-radius:50%;
+    border:1px dashed var(--border);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--font-mono); font-size:10.5px; color:var(--text-faint); text-align:center; padding:6px;
+  }
+  .goal-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px; }
+  .goal-list li{ font-size:14.5px; color:var(--text-muted); padding-left:20px; position:relative; }
+  .goal-list li::before{ content:"→"; position:absolute; left:0; color:var(--accent); }
+
+  .contact-grid{ display:grid; grid-template-columns: 0.9fr 1.1fr; gap:48px; align-items:start; }
+  @media (max-width:880px){ .contact-grid{ grid-template-columns:1fr; } }
+  .contact-card{
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+  }
+  .contact-line{
+    display:flex; align-items:center; gap:12px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border-soft);
+    font-family: var(--font-mono);
+    font-size: 14px;
+  }
+  .contact-line:last-child{ border-bottom:none; }
+  .contact-line .icon{ color: var(--accent-2); }
+
+  .section-num{
+    position:absolute;
+    right: 28px;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    transform-origin: right center;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text-faint);
+    letter-spacing: 0.1em;
+    display:none;
+  }
+  @media (min-width: 1300px){ .section-num{ display:block; } }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="nav">
+    <a class="logo" href="#home"><span class="dot"></span>valerio.dev</a>
+    <button class="nav-toggle" aria-label="Menu openen" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links">
+      <li><a href="#home" data-section="home">Home</a></li>
+      <li><a href="#projecten" data-section="projecten">Projecten</a></li>
+      <li><a href="#about" data-section="about">About</a></li>
+      <li><a href="#contact" data-section="contact">Contact</a></li>
+    </ul>
+    <a class="nav-cta" href="#contact">Neem contact op →</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ============================== HOME ============================== -->
+  <section id="home" class="hero" style="position:relative;">
+    <span class="section-num">01 — home</span>
+    <div class="wrap hero-grid">
+      <div class="reveal in-view">
+        <span class="eyebrow">welkom op mijn portfolio</span>
+        <h1>Valerio Malagoli<span class="cursor" aria-hidden="true"></span></h1>
+        <p class="role">Web Developer in opleiding</p>
+        <p class="lede">
+          Ik bouw graag dingen van de <em>voorkant</em> tot de <em>backend</em> —
+          met een voorkeur voor strakke CSS en stevige server-logica.
+          Hieronder vind je een aantal projecten die ik tijdens mijn opleiding heb gemaakt.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="#projecten">Bekijk mijn projecten</a>
+          <a class="btn btn-ghost" href="#about">Meer over mij</a>
+        </div>
+      </div>
+
+      <div class="terminal reveal">
+        <div class="terminal-bar">
+          <span class="terminal-dot red"></span>
+          <span class="terminal-dot yellow"></span>
+          <span class="terminal-dot green"></span>
+          <span class="terminal-title">over-mij.js</span>
+        </div>
+        <div class="terminal-body">
+          <div class="line"><span class="prompt">const</span> developer = {</div>
+          <div class="line">&nbsp;&nbsp;<span class="key">naam:</span> <span class="str">"Valerio Malagoli"</span>,</div>
+          <div class="line">&nbsp;&nbsp;<span class="key">rol:</span> <span class="str">"Web Developer"</span>,</div>
+          <div class="line">&nbsp;&nbsp;<span class="key">sterk_in:</span> [<span class="str">"CSS"</span>, <span class="str">"Backend"</span>],</div>
+          <div class="line">&nbsp;&nbsp;<span class="key">houding:</span> <span class="str">"creatief & samenwerken"</span>,</div>
+          <div class="line">&nbsp;&nbsp;<span class="key">leert_nu:</span> <span class="str">"zelfstandig coderen, zonder AI"</span></div>
+          <div class="line">};</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="stat-row reveal">
+        <div class="stat">
+          <div class="num">3+</div>
+          <div class="label">// afgeronde projecten</div>
+        </div>
+        <div class="stat">
+          <div class="num">solo &amp; team</div>
+          <div class="label">// werkvormen</div>
+        </div>
+        <div class="stat">
+          <div class="num">php · sql · css</div>
+          <div class="label">// veelgebruikte tools</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== PROJECTEN ============================== -->
+  <section id="projecten" style="position:relative;">
+    <span class="section-num">02 — projecten</span>
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">02 — projecten</span>
+        <h2>Dingen die ik <em>gebouwd</em> heb.</h2>
+        <p>Een mix van school-opdrachten — van een PHP-webshop tot een bestel-kiosk. Elk project heeft een korte
+        omschrijving, de gebruikte technieken en een link naar de code en (indien beschikbaar) de live demo.</p>
+      </div>
+
+      <div class="grid-projects">
+
+        <!-- PROJECT 1: VINYL WEBSITE -->
+        <article class="browser-card project-card reveal">
+          <div class="browser-chrome">
+            <div class="browser-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+            <div class="browser-url">vinyl-website — live link nog niet ingevuld</div>
+          </div>
+          <div class="media-placeholder">
+            <span class="icon">🖼️</span>
+            <span>Plaatje / screenshot van de Vinyl Website<br>(zelf toevoegen)</span>
+          </div>
+          <div class="project-body">
+            <div class="project-top">
+              <h3 style="font-size:21px;">Vinyl Website</h3>
+              <span class="badge">solo</span>
+            </div>
+            <p style="color:var(--text-muted); font-size:14.5px;">
+              Een webshop waar bezoekers vinylplaten kunnen kopen. Mijn eindopdracht van het eerste jaar,
+              volledig gebouwd in PHP.
+            </p>
+            <ul class="highlights">
+              <li>Productoverzicht en -detailpagina's voor losse platen</li>
+              <li>Winkelwagen-functionaliteit in PHP</li>
+              <li>Server-side opbouw van pagina's, geen losse framework</li>
+            </ul>
+            <div class="project-meta">
+              <div><span>Periode</span><b>Jaar 1 · eindopdracht</b></div>
+              <div><span>Type</span><b>Solo project</b></div>
+              <div><span>Mijn rol</span><b>Volledig zelf gebouwd</b></div>
+              <div><span>Tech</span><b>PHP</b></div>
+            </div>
+            <div class="btn-row">
+              <!--
+                LET OP VALERIO: hieronder de live-link instellen.
+                Vervang de href="#" door je echte live URL,
+                en verwijder dan ook de class "btn-disabled" en
+                het woordje "(binnenkort)".
+              -->
+              <a class="btn btn-primary btn-sm btn-disabled" href="#" aria-disabled="true" title="Voeg hier je live-URL toe in de code">Live demo (binnenkort)</a>
+              <a class="btn btn-ghost btn-sm" href="https://github.com/valeriooooooo/Module-5.2-vinyl-website" target="_blank" rel="noopener noreferrer">Bekijk code →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- PROJECT 2: KIOSK WEBSITE -->
+        <article class="browser-card project-card reveal">
+          <div class="browser-chrome">
+            <div class="browser-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+            <div class="browser-url">u240173.gluwebsite.nl/kiosksite</div>
+          </div>
+          <div class="media-placeholder">
+            <span class="icon">🖼️</span>
+            <span>Plaatje / screenshot van de Kiosk Website<br>(zelf toevoegen)</span>
+          </div>
+          <div class="project-body">
+            <div class="project-top">
+              <h3 style="font-size:21px;">Kiosk Website — Happy Herbivore</h3>
+              <span class="badge accent">uitgelicht</span>
+            </div>
+            <p style="color:var(--text-muted); font-size:14.5px;">
+              Een bestel-kiosk voor Happy Herbivore, een vegetarische snackbar. Een team-opdracht uit het
+              midden van mijn tweede jaar, waarin ik de backend bouwde.
+            </p>
+            <ul class="highlights">
+              <li>Backend voor bestellingen en menubeheer</li>
+              <li>Samenwerking met teamgenoten op front- en backend</li>
+              <li>Gebouwd voor gebruik op een kiosk-scherm in de zaak</li>
+            </ul>
+            <div class="project-meta">
+              <div><span>Periode</span><b>Jaar 2 · halverwege</b></div>
+              <div><span>Type</span><b>Team project</b></div>
+              <div><span>Mijn rol</span><b>Backend</b></div>
+              <div><span>Tech</span><b>PHP · SQL</b></div>
+            </div>
+            <div class="btn-row">
+              <a class="btn btn-primary btn-sm" href="https://u240173.gluwebsite.nl/kiosksite/index.html" target="_blank" rel="noopener noreferrer">Bekijk live demo →</a>
+              <a class="btn btn-ghost btn-sm" href="https://github.com/tobias-Gt1/7.1KioskOpdracht" target="_blank" rel="noopener noreferrer">Bekijk code →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- PROJECT 3: SOULS COLLECTOR -->
+        <article class="browser-card project-card reveal">
+          <div class="browser-chrome">
+            <div class="browser-dots"><span class="r"></span><span class="y"></span><span class="g"></span></div>
+            <div class="browser-url">souls-collector — geen live demo</div>
+          </div>
+          <div style="padding:18px;">
+            <div class="video-slot">
+              <span style="font-size:22px;">🎬</span>
+              <span>Voeg hier een korte video toe<br>(bv. ingesloten YouTube-video of .mp4)</span>
+            </div>
+          </div>
+          <div class="project-body" style="padding-top:0;">
+            <div class="project-top">
+              <h3 style="font-size:21px;">Souls Collector</h3>
+              <span class="badge">solo</span>
+            </div>
+            <p style="color:var(--text-muted); font-size:14.5px;">
+              Een webshop voor merchandise uit Souls-games, gemaakt om een goede backend met database te
+              leren bouwen. Liep rond het midden van mijn eerste jaar.
+            </p>
+            <ul class="highlights">
+              <li>CRUD-functionaliteit gekoppeld aan een database</li>
+              <li>Productbeheer voor een webshop-omgeving</li>
+              <li>Focus op een solide backend-structuur</li>
+            </ul>
+            <div class="code-snip">SELECT * FROM products WHERE category = 'souls' ORDER BY price ASC;</div>
+            <div class="project-meta">
+              <div><span>Periode</span><b>Jaar 1 · halverwege</b></div>
+              <div><span>Type</span><b>Solo project</b></div>
+              <div><span>Mijn rol</span><b>Volledig zelf gebouwd</b></div>
+              <div><span>Tech</span><b>Backend · Database</b></div>
+            </div>
+            <div class="btn-row">
+              <a class="btn btn-ghost btn-sm" href="https://github.com/GLU-CSD/module-4-1-webshop-backend-crud-eindopdracht-valeriooooooo" target="_blank" rel="noopener noreferrer">Bekijk code →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- PROJECT 4 — PLACEHOLDER -->
+        <article class="browser-card soon-card reveal">
+          <div>
+            <span class="badge" style="margin-bottom:14px;">project 4</span>
+            <h3 style="font-size:19px; margin:6px 0 8px; color:var(--text-muted);">Binnenkort toegevoegd</h3>
+            <p style="color:var(--text-faint); font-size:13.5px;">Hier komt nog een project bij — wordt later aangevuld.</p>
+          </div>
+        </article>
+
+        <!-- PROJECT 5 — PLACEHOLDER -->
+        <article class="browser-card soon-card reveal">
+          <div>
+            <span class="badge" style="margin-bottom:14px;">project 5</span>
+            <h3 style="font-size:19px; margin:6px 0 8px; color:var(--text-muted);">Binnenkort toegevoegd</h3>
+            <p style="color:var(--text-faint); font-size:13.5px;">Hier komt nog een project bij — wordt later aangevuld.</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== ABOUT ============================== -->
+  <section id="about" style="position:relative;">
+    <span class="section-num">03 — about</span>
+    <div class="wrap about-grid">
+      <div class="photo-frame reveal">
+        <span style="font-size:26px;">📷</span>
+        <span>Voeg hier je eigen foto toe</span>
+      </div>
+
+      <div class="reveal">
+        <span class="eyebrow">03 — about</span>
+        <h2 style="font-size:clamp(28px,4vw,40px); margin-bottom:16px;">Hoi, ik ben <em>Valerio</em>.</h2>
+        <p style="color:var(--text-muted); font-size:16.5px; max-width:60ch; margin-bottom:18px;">
+          Wat ik het leukst vind aan web development is de creatieve vrijheid — de mogelijkheid om
+          zelf te bedenken en bouwen wat je wilt. Of het nu gaat om een nieuwe layout in CSS of de
+          logica achter een backend, ik ga graag op zoek naar een eigen, unieke aanpak zodra ik de
+          ruimte krijg om iets zelf te ontwerpen.
+        </p>
+        <p style="color:var(--text-muted); font-size:16.5px; max-width:60ch; margin-bottom:28px;">
+          Ik werk graag samen: ik kan goed met anderen schakelen en heb in teamprojecten nooit echt
+          tegen problemen aangelopen. Daarnaast ben ik op dit moment vooral bezig met het versterken
+          van mijn zelfstandigheid als developer.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn-ghost btn-sm" href="https://github.com/valeriooooooo" target="_blank" rel="noopener noreferrer">GitHub →</a>
+          <a class="btn btn-ghost btn-sm" href="https://www.linkedin.com/in/valerio-malagoli-544217417/" target="_blank" rel="noopener noreferrer">LinkedIn →</a>
+          <!--
+            LET OP VALERIO: zodra je een CV-bestand hebt,
+            verander de href hieronder naar de locatie van je
+            cv.pdf en verwijder de class "btn-disabled".
+          -->
+          <a class="btn btn-disabled btn-sm" href="#" aria-disabled="true" title="Voeg hier de link naar je CV toe">CV (binnenkort)</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <hr class="rule" style="margin: 64px 0;">
+    </div>
+
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">vaardigheden</span>
+        <h2>Wat ik <em>meeneem</em>.</h2>
+      </div>
+
+      <div class="skill-grid">
+        <div class="reveal">
+          <h3 style="font-size:16px; font-family:var(--font-mono); color:var(--text-muted); margin-bottom:18px; font-weight:500;">Soft skills</h3>
+          <ul class="skill-list">
+            <li><span class="skill-name">Samenwerken</span><span class="skill-bar"><span style="width:90%;"></span></span></li>
+            <li><span class="skill-name">Creativiteit</span><span class="skill-bar"><span style="width:92%;"></span></span></li>
+            <li><span class="skill-name">Communicatie</span><span class="skill-bar"><span style="width:75%;"></span></span></li>
+            <li><span class="skill-name">Probleemoplossend vermogen</span><span class="skill-bar"><span style="width:78%;"></span></span></li>
+          </ul>
+        </div>
+        <div class="reveal">
+          <h3 style="font-size:16px; font-family:var(--font-mono); color:var(--text-muted); margin-bottom:18px; font-weight:500;">Hard skills</h3>
+          <ul class="skill-list">
+            <li><span class="skill-name">CSS</span><span class="skill-bar"><span style="width:88%;"></span></span></li>
+            <li><span class="skill-name">Backend (PHP / SQL)</span><span class="skill-bar"><span style="width:85%;"></span></span></li>
+            <li><span class="skill-name">HTML</span><span class="skill-bar"><span style="width:90%;"></span></span></li>
+            <li><span class="skill-name">JavaScript</span><span class="skill-bar"><span style="width:65%;"></span></span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <hr class="rule" style="margin: 64px 0;">
+    </div>
+
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">vooruitkijken</span>
+        <h2>Waar ik nog <em>naartoe</em> wil.</h2>
+      </div>
+      <ul class="goal-list reveal" style="max-width:60ch;">
+        <li>Meer zelfstandig leren coderen, zonder op AI te leunen voor de oplossing</li>
+        <li>Beter begrijpen wát AI-tools precies doen, in plaats van ze alleen te gebruiken</li>
+        <li>Mijn JavaScript-kennis verder uitbouwen naast mijn backend-skills</li>
+      </ul>
+    </div>
+
+    <div class="wrap">
+      <hr class="rule" style="margin: 64px 0;">
+    </div>
+
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">aanbeveling</span>
+        <h2>Een woord van mijn <em>mentor</em>.</h2>
+      </div>
+
+      <div class="quote-card reveal">
+        <div class="mini-photo">
+          📷<br>foto Martijn<br>toevoegen
+        </div>
+        <div>
+          <p style="font-style:italic; color:var(--text); font-size:16px; margin-bottom:10px;">
+            Martijn Kunstman is de mentor die mij het meest heeft geleerd over web development —
+            hij stond altijd klaar om te helpen en mee te denken tijdens mijn opleiding.
+          </p>
+          <p style="font-family:var(--font-mono); font-size:13px; color:var(--text-muted);">— Martijn Kunstman, mentor</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== CONTACT ============================== -->
+  <section id="contact" style="position:relative;">
+    <span class="section-num">04 — contact</span>
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">04 — contact</span>
+        <h2>Laten we <em>praten</em>.</h2>
+        <p>Een vraag, een opdracht of gewoon even kennismaken — stuur me een bericht via het formulier
+        of mail me direct.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-card reveal">
+          <div class="contact-line"><span class="icon">✉</span> <a href="mailto:valeriomalagoli08@gmail.com">valeriomalagoli08@gmail.com</a></div>
+          <div class="contact-line"><span class="icon">⌁</span> <a href="https://github.com/valeriooooooo" target="_blank" rel="noopener noreferrer">github.com/valeriooooooo</a></div>
+          <div class="contact-line"><span class="icon">⌁</span> <a href="https://www.linkedin.com/in/valerio-malagoli-544217417/" target="_blank" rel="noopener noreferrer">LinkedIn profiel</a></div>
+        </div>
+
+        <form class="contact-card reveal" id="contact-form">
+          <div class="field">
+            <label for="naam">Naam</label>
+            <input type="text" id="naam" name="naam" required>
+          </div>
+          <div class="field">
+            <label for="email">E-mailadres</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="field">
+            <label for="bericht">Bericht</label>
+            <textarea id="bericht" name="bericht" required></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit">Verstuur bericht →</button>
+          <p class="form-status" id="form-status"></p>
+        </form>
+      </div>
+
+      <!--
+        LET OP VALERIO: dit formulier opent nu de mail-app van de
+        bezoeker (zie js/script.js). Zodra je gaat hosten kun je dit
+        koppelen aan een echte backend, bijvoorbeeld met een PHP-mailscript
+        (zoals bij je Vinyl Website) of een service als Formspree/EmailJS.
+      -->
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <span class="logo"><span class="dot"></span>valerio.dev</span>
+      <div class="footer-links">
+        <a href="https://github.com/valeriooooooo" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com/in/valerio-malagoli-544217417/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="mailto:valeriomalagoli08@gmail.com">E-mail</a>
+      </div>
+    </div>
+    <p class="footer-note">© <span id="year"></span> Valerio Malagoli — gebouwd met HTML, CSS &amp; JS.</p>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
